@@ -1,0 +1,10 @@
+test(`POST /${apiEndpoint} 201`, async () => {
+    const { status, body } = await request(server)
+        .post(`${serverConfig.endpoint}/${apiEndpoint}`)
+        .send({content: 'hello world'})
+        
+    expect(status).toBe(201)
+    expect(typeof body).toEqual('object')
+    expect(body.content).toEqual('hello world')
+})
+    

@@ -1,0 +1,9 @@
+import { UnauthorizedError } from 'restify-errors'
+
+export const {{camelCase serviceName}} = () => 
+    ((req, res, next) => {
+        if(!req.user)
+            next(new UnauthorizedError())
+        next()
+    })
+    

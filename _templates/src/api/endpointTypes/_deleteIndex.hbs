@@ -1,0 +1,19 @@
+/**
+ * @api {delete} /{{lowerCase endpointName}}s/:id Delete {{lowerCase endpointName}}
+ * @apiName {{pascalCase endpointName}}
+ * @apiGroup {{pascalCase endpointName}}
+ * @apiSuccess (Success 204) 204 No Content.
+ * @apiError 404 {{pascalCase endpointName}} not found.
+ */
+router.del('/:id', endpoint.remove())
+
+/**
+ * @api {delete} /{{lowerCase endpointName}}s/all Delete all {{lowerCase endpointName}}s
+ * @apiName DeleteAll{{pascalCase endpointName}}s
+ * @apiGroup {{pascalCase endpointName}}
+ * @apiPermission admin
+ * @apiParam {String} admintoken admin access token.
+ * @apiSuccess (Success 204) 204 No Content.
+ * @apiError 401 admin access only.
+ */
+router.del('/all', doorman(['admin']), deleteAll)

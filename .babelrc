@@ -1,0 +1,26 @@
+{  
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathPrefix": "~",
+        "rootPathSuffix": "src"
+      }
+    ],
+    "@babel/plugin-transform-parameters",
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-proposal-optional-chaining"
+  ],
+  "sourceMaps": "both",
+  "highlightCode": true
+}

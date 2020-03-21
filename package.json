@@ -1,0 +1,115 @@
+{
+  "name": "getit",
+  "version": "0.1.4",
+  "description": "RESTful Restify Mongoose Generator with jest and integration tests",
+  "author": "Tayfun Guelcan <hello@tayfunguelcan.de>",
+  "license": "MIT",
+  "bin": "cli.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tguelcan/getit_core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tguelcan/restbest/labels/bug"
+  },
+  "homepage": {
+    "url": "https://tayfunguelcan.de"
+  },
+  "apidoc": {
+    "name": "restbest",
+    "description": "restBest apiDoc Documentation",
+    "title": "restBest apiDoc Documentation",
+    "url": "/api"
+  },
+  "main": "lib/server.js",
+  "keywords": [
+    "restify",
+    "mongoose",
+    "REST",
+    "RESTful",
+    "resource",
+    "generator",
+    "auth",
+    "babel7"
+  ],
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "build": "babel src -d lib",
+    "serve": "node dist/server.js",
+    "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o API.md",
+    "heroku-postbuild": "npm run build",
+    "start": "node .",
+    "test": "jest",
+    "test:coverage": "yarn run test --coverage",
+    "test:coveralls": "yarn run jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "generate": "plop"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^6.5.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.8.7",
+    "mongoose-keywords": "^0.4.0",
+    "rand-token": "^0.4.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "restify": "^8.5.1",
+    "restify-errors": "^8.0.2",
+    "restify-jwt-community": "^1.1.2",
+    "restify-mongoose": "^5.0.0",
+    "restify-router": "^0.5.1",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-arrow-functions": "^7.8.3",
+    "@babel/plugin-transform-parameters": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "apidoc": "^0.19.1",
+    "apidoc-markdown": "^0.2.1",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-root-import": "^6.4.1",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0",
+    "mongodb-memory-server": "^6.2.2",
+    "nodemon": "^2.0.2",
+    "plop": "^2.5.3",
+    "superagent": "^5.2.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/node_modules/"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ]
+  }
+}

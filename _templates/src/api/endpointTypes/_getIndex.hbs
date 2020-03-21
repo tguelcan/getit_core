@@ -1,0 +1,20 @@
+/**
+ * @api {get} /{{lowerCase endpointName}}s Retrieve {{lowerCase endpointName}}s
+ * @apiName Retrieve{{pascalCase endpointName}}s
+ * @apiGroup {{pascalCase endpointName}}
+ * @apiUse listParams
+ * @apiHeader {Number} x-total-count {{pascalCase endpointName}}s count.
+ * @apiSuccess {Object[]} {{lowerCase endpointName}}s List of {{lowerCase endpointName}}s.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ */
+router.get('', endpoint.query())
+
+/**
+ * @api {get} /{{lowerCase endpointName}}s/:id Retrieve {{lowerCase endpointName}}
+ * @apiName Retrieve{{pascalCase endpointName}}
+ * @apiGroup {{pascalCase endpointName}}
+ * @apiSuccess {Object} {{lowerCase endpointName}} {{pascalCase endpointName}}'s data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 {{pascalCase endpointName}} not found.
+ */
+router.get('/:id', endpoint.detail())

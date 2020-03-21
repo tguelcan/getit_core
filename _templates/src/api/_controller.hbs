@@ -1,0 +1,7 @@
+// import { BadRequestError } from 'restify-errors'
+import {{pascalCase endpointName}} from './model'
+
+export const deleteAll = async(req, res) => {
+    await {{pascalCase endpointName}}.deleteMany()
+    res.json('success')
+}

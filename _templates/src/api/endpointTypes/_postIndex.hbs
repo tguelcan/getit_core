@@ -1,0 +1,11 @@
+/**
+ * @api {post} /{{lowerCase endpointName}}s Create {{lowerCase endpointName}}
+ * @apiName Create{{pascalCase endpointName}}
+ * @apiGroup {{pascalCase endpointName}}
+ * @apiPermission user
+ * @apiParam content {{pascalCase endpointName}}'s content.
+ * @apiSuccess {Object} {{lowerCase endpointName}} {{pascalCase endpointName}}'s data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 {{pascalCase endpointName}} not found.
+ */
+router.post('', endpoint.insert())

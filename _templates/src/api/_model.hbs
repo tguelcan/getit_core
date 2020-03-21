@@ -1,0 +1,30 @@
+import mongoose, { Schema } from 'mongoose'
+
+const {{lowerCase endpointName}}Schema = new Schema({
+    content: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true,
+    toJSON: {
+        virtuals: true
+    }
+})
+
+export const modelProjection = function(req, item, cb) {
+    let view = {}
+    let fields = ['id', 'content']
+
+    /*
+    if (req.user) {
+        fields = [...fields, 'createdAt']
+    }
+    */
+
+    fields.forEach((field) => { view[field] = item[field] })
+
+    cb(null, view)
+}
+
+export default mongoose.model('{{pascalCase endpointName}}', {{lowerCase endpointName}}Schema)

@@ -1,0 +1,18 @@
+test(`PATCH /${apiEndpoint}/:id 200`, async () => {
+    const { status, body } = await request(server)
+        .patch(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)
+        .send({ content: 'newContent' })
+        
+    expect(status).toBe(200)
+    expect(typeof body).toEqual('object')
+    expect(body.content).toEqual('newContent')
+})
+
+test(`PATCH /${apiEndpoint}/:id 404`, async () => {
+    const { status } = await request(server)
+        .patch(`${serverConfig.endpoint}/${apiEndpoint}/123456789098765432123456`)
+        .send({ content: 'test' })
+        
+    expect(status).toBe(404)
+})
+    

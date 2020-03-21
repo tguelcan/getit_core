@@ -1,0 +1,29 @@
+test(`GET /${apiEndpoint} 200`, async () => {
+    const {statusCode, body} = await request(server)
+        .get(`${serverConfig.endpoint}/${apiEndpoint}`)
+    const firstItem = body[0]
+        
+    expect(statusCode).toBe(200)
+    expect(Array.isArray(body)).toBe(true)
+    expect(typeof firstItem.content).toEqual('string')
+    expect(firstItem.content).toEqual(dataObject.content)
+    expect(firstItem.id).toBeTruthy()
+    expect(firstItem.updatedAt).toBeUndefined()
+})
+
+test(`GET /${apiEndpoint}:id 200`, async () => {
+    const { status, body } = await request(server)
+        .get(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)
+        
+    expect(status).toBe(200)
+    expect(typeof body).toEqual('object')
+    expect(body.content).toEqual(dataObject.content)
+})
+
+test(`GET /${apiEndpoint}/:id 404`, async () => {
+    const { status } = await request(server)
+        .get(`${serverConfig.endpoint}/${apiEndpoint}/123456789098765432123456`)
+        
+    expect(status).toBe(404)
+})
+    

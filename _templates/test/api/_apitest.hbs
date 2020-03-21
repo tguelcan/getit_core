@@ -1,0 +1,40 @@
+import request from 'supertest'
+import { isJWT } from 'validator'
+import server from '@/server'
+import { serverConfig } from '@/config'
+import Model from '@/api/{{lowerCase endpointName}}/model'
+import { sign } from '@/services/guard'
+import User from '@/api/user/model'
+
+
+let dataObject, 
+    adminToken,
+    defaultToken,
+    apiEndpoint = '{{lowerCase endpointName}}s'
+
+beforeEach(async (done) => {
+    // Create object
+    dataObject = await Model.create({ content: 'test' })
+    
+    // Create user
+    const adminUser = new User({ name: 'Maximilian', email: 'max1@moritz.com', password: 'Max123!!!', role: 'admin' })
+    const defaultUser = new User({ name: 'Maximilian', email: 'max2@moritz.com', password: 'Max123!!!', role: 'user' })
+    
+    // Sign in user
+    adminToken = await sign(adminUser)
+    expect(isJWT(adminToken)).toBe(true)
+    
+    defaultToken = await sign(defaultUser)
+    expect(isJWT(defaultToken)).toBe(true)
+    
+    done()
+})
+
+describe(`Test /${apiEndpoint} endpoint:`, () => {
+
+    /* GET_TEST */
+    /* POST_TEST */
+    /* PATCH_TEST */
+    /* DELETE_TEST */
+
+})
