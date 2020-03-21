@@ -1,7 +1,6 @@
 import { Router } from 'restify-router'
 import user from './user'
 /* ENDPOINT_ROUTER_IMPORT */
-import institution from './institution'
 import message from './message'
 import passwordReset from './password-reset'
 import auth from './auth'
@@ -33,7 +32,6 @@ const router = new Router()
  */
 
 /* ENDPOINT_ROUTER_EXPORT */
-router.add('/institutions', institution)
 router.add('/messages', message)
 router.add('/password-resets', passwordReset)
 router.add('/users', user)
