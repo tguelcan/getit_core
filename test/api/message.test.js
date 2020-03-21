@@ -1,10 +1,10 @@
 import request from 'supertest'
 import { isJWT } from 'validator'
-import server from '@/server'
-import { serverConfig } from '@/config'
-import Model from '@/api/message/model'
-import { sign } from '@/services/guard'
-import User from '@/api/user/model'
+import server from '~/server'
+import { serverConfig } from '~/config'
+import Model from '~/api/message/model'
+import { sign } from '~/services/guard'
+import User from '~/api/user/model'
 
 
 let dataObject, 

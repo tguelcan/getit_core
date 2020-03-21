@@ -2,11 +2,11 @@ import request from 'supertest'
 import { Router } from 'restify-router'
 import { isJWT } from 'validator'
 
-import server from '@/server'
-import { serverConfig } from '@/config'
-import { doorman } from '@/services/guard'
-import { sign, decode } from '@/services/guard'
-import User from '@/api/user/model'
+import server from '~/server'
+import { serverConfig } from '~/config'
+import { doorman } from '~/services/guard'
+import { sign, decode } from '~/services/guard'
+import User from '~/api/user/model'
 
 let token, 
     apiEndpoint = 'test'

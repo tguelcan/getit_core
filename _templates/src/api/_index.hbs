@@ -1,7 +1,7 @@
 import restifyMongoose from 'restify-mongoose'
 import { Router } from 'restify-router'
-import { restConfig } from '@/config'
-import { doorman } from '@/services/guard'
+import { restConfig } from '~/config'
+import { doorman } from '~/services/guard'
 import { deleteAll } from './controller'
 import model, { modelProjection } from './model'
 

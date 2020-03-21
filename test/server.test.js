@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import request from 'supertest'
-import server from '@/server'
-import { serverConfig, dbConfig } from '@/config'
-import { requireProcessEnv } from '@/utils'
+import server from '~/server'
+import { serverConfig, dbConfig } from '~/config'
+import { requireProcessEnv } from '~/utils'
 import { Router } from 'restify-router'
 
 

@@ -1,10 +1,10 @@
 import crypto from 'crypto'
 import request from 'supertest'
 import { isJWT } from 'validator'
-import server from '@/server'
-import { serverConfig } from '@/config'
-import { sign } from '@/services/guard'
-import Model from '@/api/user/model'
+import server from '~/server'
+import { serverConfig } from '~/config'
+import { sign } from '~/services/guard'
+import Model from '~/api/user/model'
 
 let adminUser, 
     defaultUser,
@@ -61,7 +61,7 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
             .get(`${serverConfig.endpoint}/${apiEndpoint}/me`)
             .set('Authorization', 'Bearer ' + adminToken)
         
-        expect(statusCode).toBe(200)
+        expect(statusCode).toBe(201)
         expect(header['content-type']).toBe('application/json')
         expect(typeof body).toBe('object')
         expect(typeof body._id).toBe('string')

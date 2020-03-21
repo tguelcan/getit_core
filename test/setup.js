@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 import MongodbMemoryServer from 'mongodb-memory-server'
-import mongoose from '@/services/mongoose'
+import mongoose from '~/services/mongoose'
 
 EventEmitter.defaultMaxListeners = Infinity
 
