@@ -37,9 +37,9 @@ restBest apiDoc Documentation
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| username			| String			|  <p>User's username.</p>							|
+| email 			| String			|  <p>User's email.</p>							|
 | password			| String			|  <p>User's password.</p>							|
-| masterkey			| String			|  <p>admin access token.</p>							|
+| token 			| String			|  <p>admin access token.</p>							|
 
 # Message
 
