@@ -22,7 +22,10 @@ restBest apiDoc Documentation
 	- [Update password](#update-password)
 	- [Update user](#update-user)
 	
-
+- [Password Reset](#password-reset)
+	- [Send mail](#send-mail)
+	- [Verify token](#verify-token)
+	- [Submit password](#submit-password)
 
 # Authentication
 
@@ -216,4 +219,39 @@ restBest apiDoc Documentation
 | picture			| String			| **optional** <p>User's picture.</p>							|
 | userSettings			| Object			| **optional** <p>some usersettings values.</p>							|
 
+
+# Password Reset
+
+## Send mail
+
+
+	POST /password-resets
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| token			| String			|  <p>Master token.</p>							|
+| email			| String			|  <p>User's email.</p>							|
+| link			| String			|  <p>Password reset link, token gets concatenated.</p>							|
+
+
+## Verify Token
+
+	
+	GET /password-resets/:token
+
+
+
+## Submit Password
+
+	PATCH /password-resets/:token
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| password			| String			|  <p>New password.</p>							|
 
