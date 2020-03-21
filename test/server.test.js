@@ -9,7 +9,7 @@ import { Router } from 'restify-router'
 let config = serverConfig, 
     apiEndpoint = 'test'
 
-beforeAll(async (done) => {
+beforeAll((done) => {
     describe('Add Testrouter', () => {
         const router = new Router()
 
@@ -24,27 +24,18 @@ beforeAll(async (done) => {
 })
 
 describe('Server Test:', () => {
-    test('Load Test ENV', async (done) => {
-        try {
-            requireProcessEnv('test')
-        } catch(error) {
-            expect(error).toBeTruthy()
-            done()
-        }
-    })
-
-    test('Load Server', async (done) => {
+    test('Load Server', (done) => {
         expect(typeof config.server).toEqual('object')
         done()
     })
 
-    test('Load JWT', async (done) => {
+    test('Load JWT', (done) => {
         expect(typeof config.jwt).toEqual('object')
         expect(typeof config.jwt?.secret).toEqual('string')
         done()
     })
 
-    test('Load DB Config', async (done) => {
+    test('Load DB Config', (done) => {
         expect(typeof dbConfig.url).toBeTruthy()
         expect(typeof dbConfig.url).toEqual('string')
         expect(dbConfig.url.startsWith('mongodb://')).toBeTruthy()
@@ -70,18 +61,6 @@ describe('Server Test:', () => {
         expect(body.code).toBe('ResourceNotFound')
         expect(typeof body).toBe('object')
         done()
-    })
-
-    test('GET abcd 404', async (done) => {
-        try {
-            await request(server)
-                .get('abcd')
-        } catch (error) {
-            expect(typeof error).toBe('object')
-            expect(error.code).toBe('ECONNREFUSED')
-            done()
-        }
-
     })
 
 })
