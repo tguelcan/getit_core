@@ -1,5 +1,5 @@
 <p align="center">
- <img src="https://raw.githubusercontent.com/tguelcan/restbest/master/logo.png" width="400">
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/logo.png" width="400">
 </p>
 
 [![Build Status](https://travis-ci.com/tguelcan/restbest.svg?branch=master)](https://travis-ci.com/tguelcan/restbest) 
