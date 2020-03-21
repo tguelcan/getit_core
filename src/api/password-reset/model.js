@@ -20,7 +20,7 @@ const passwordResetSchema = new Schema({
     }
 })
 
-export const modelProjection = function(req, item, cb) {
+export const modelProjection = function(req, item = this, cb) {
     let view = {}
     let fields = ['user', 'token']
 
@@ -31,7 +31,10 @@ export const modelProjection = function(req, item, cb) {
     */
 
     fields.forEach((field) => { view[field] = item[field] })
-
+    
+    if(!cb)
+        return view
+    
     cb(null, view)
 }
 
