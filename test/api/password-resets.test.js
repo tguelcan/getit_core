@@ -37,7 +37,7 @@ describe(`Test /${apiEndpoint} endpoint`, () => {
     test(`POST /${apiEndpoint} 201 - Send email with password reset link`, async () => {
         const { status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email: 'max2@moritz.com', token: serverConfig.masterKey, link: 'http://0.0.0.0:9000/password-reset/' })
+            .send({ email: 'max2@moritz.com', token: serverConfig.masterKey, link: 'http://0.0.0.0:9000/password-resets/' })
 
         expect(status).toBe(201)
 
@@ -54,7 +54,7 @@ describe(`Test /${apiEndpoint} endpoint`, () => {
     test(`POST /${apiEndpoint} 400 - Send email with wrong mail`, async () => {
         const { status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email: 'das ist keine mail', token: serverConfig.masterKey, link: 'http://0.0.0.0:9000/password-reset/' })
+            .send({ email: 'das ist keine mail', token: serverConfig.masterKey, link: 'http://0.0.0.0:9000/password-resets/' })
 
         expect(status).toBe(400)
     })
@@ -62,7 +62,7 @@ describe(`Test /${apiEndpoint} endpoint`, () => {
     test(`POST /${apiEndpoint} 401 - Send email with wrong token`, async () => {
         const { status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email: 'max2@moritz.com', token: 'simsalabim', link: 'http://0.0.0.0:9000/password-reset/' })
+            .send({ email: 'max2@moritz.com', token: 'simsalabim', link: 'http://0.0.0.0:9000/password-resets/' })
 
         expect(status).toBe(401)
     })
