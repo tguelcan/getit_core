@@ -16,9 +16,9 @@
     "url": "https://tayfunguelcan.de"
   },
   "apidoc": {
-    "name": "restbest",
-    "description": "restBest apiDoc Documentation",
-    "title": "restBest apiDoc Documentation",
+    "name": "getit",
+    "description": "getit apiDoc Documentation",
+    "title": "getit apiDoc Documentation",
     "url": "/api"
   },
   "main": "lib/server.js",

@@ -11,10 +11,10 @@ services:
 env:
   global:
     - NODE_ENV=test
-    - APP_NAME=restbest
+    - APP_NAME=getit
     - APP_VERSION=1.0
     - JWT_SECRET=changechangechangeit
     - MASTER_KEY=yourSecretMasterKey
-    - MONGODB_URI=mongodb://localhost:27017/restbest
+    - MONGODB_URI=mongodb://localhost:27017/getit
 notifications:
   email: false

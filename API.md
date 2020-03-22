@@ -1,6 +1,6 @@
-# restbest v0.1.4
+# getit v0.1.4
 
-restBest apiDoc Documentation
+getit apiDoc Documentation
 
 - [Auth](#auth)
 	- [Authenticate with external provider](#authenticate-with-external-provider)

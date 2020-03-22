@@ -2,10 +2,10 @@
  <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/get_it_logo.jpg" width="400">
 </p>
 
-[![Build Status](https://travis-ci.com/tguelcan/restbest.svg?branch=master)](https://travis-ci.com/tguelcan/restbest) 
-[![Coverage Status](https://coveralls.io/repos/github/tguelcan/restbest/badge.svg?branch=master)](https://coveralls.io/github/tguelcan/restbest?branch=master) 
-[![dependencies Status](https://david-dm.org/tguelcan/restbest/status.svg)](https://david-dm.org/tguelcan/restbest) 
-[![devDependencies Status](https://david-dm.org/tguelcan/restbest/dev-status.svg)](https://david-dm.org/tguelcan/restbest?type=dev) 
+[![Build Status](https://travis-ci.com/tguelcan/getit.svg?branch=master)](https://travis-ci.com/tguelcan/getit) 
+[![Coverage Status](https://coveralls.io/repos/github/tguelcan/getit/badge.svg?branch=master)](https://coveralls.io/github/tguelcan/getit?branch=master) 
+[![dependencies Status](https://david-dm.org/tguelcan/getit/status.svg)](https://david-dm.org/tguelcan/getit) 
+[![devDependencies Status](https://david-dm.org/tguelcan/getit/dev-status.svg)](https://david-dm.org/tguelcan/getit?type=dev) 
 [![Heroku CI Status](https://heroku-pass-ci.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/0e6548a4-79df-4655-b19a-724b3c009aa3/tests)
 
 **getit_core powers the GET IT! Frontend: https://github.com/tguelcan/getit featured on DEVPOST: (https://devpost.com/software/get-it-5otumj. It is based on NodeJS, Restify, Mongodb and Mongoose.** 
@@ -21,6 +21,14 @@
 
 # 🍰 getit_core 101
 
+In order to use the endpoints you need to:
+
+1. Create an account
+2. Login with your account
+3. Use the jwt token when making requests!
+
+To see all the API endpoints, take a look at our [API docs](API.md)
+
 Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
 
 ```bash
@@ -34,23 +42,6 @@ You can also configure how many results you want to see at max
 ```
 
 if you want to create entries for testing purposes, install python and use the https://github.com/tguelcan/getit_core/blob/master/BuyersEntryScript PyMongo script to create test data.
-
-# 🌈 getit_core endpoints
-
-## Authentication endpoints:
-
-GET Endpoints
-
-```bash
-/api/entries?postcode=64319&type=articles
-/api/entries/me
-```
-
-POST Endpoints
-
-```bash
-/api/entries/create
-```
 
 
 # #️⃣ Commands you can use
