@@ -25,12 +25,10 @@ export const create = async(req, res, next) => {
 
         // create entry
         const entry = await (await Entry.create({ postcode, entryType, list, deliveryDate, user: response._id, name  }))
-        console.log(entry.modelProjection())
         res.send(201, entry.modelProjection())
  
     } catch (error) {
         /* istanbul ignore next */ 
-        console.log(error)
         return next(new BadRequestError(error))
     }
 }
