@@ -11,10 +11,8 @@ restBest apiDoc Documentation
 - [Entry](#entry)
 	- [Create entry](#create-entry)
 	- [Delete all entries](#delete-all-entries)
-	- [Delete entry](#delete-entry)
-	- [Retrieve entry](#retrieve-entry)
+	- [Retrieve user entries](#retrieve-user-entries)
 	- [Retrieve entries](#retrieve-entries)
-	- [Update entry](#update-entry)
 	
 - [Message](#message)
 	- [Create message](#create-message)
@@ -68,9 +66,9 @@ restBest apiDoc Documentation
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| username			| String			|  <p>User's username.</p>							|
+| email			| String			|  <p>User's email.</p>							|
 | password			| String			|  <p>User's password.</p>							|
-| masterkey			| String			|  <p>admin access token.</p>							|
+| token			| String			|  <p>admin access token.</p>							|
 
 # Entry
 
@@ -85,7 +83,12 @@ restBest apiDoc Documentation
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| content			| 			|  <p>Entry's content.</p>							|
+| postcode			| Number			|  							|
+| entryType			| String			|  <p>product or service</p>							|
+| list			| Array			|  <p>array with objects as modeled in entry schema</p>							|
+| deliveryDate			| Date			|  							|
+| email			| String			|  <p>user mail</p>							|
+| name			| String			|  <p>list name</p>							|
 
 ## Delete all entries
 
@@ -100,18 +103,11 @@ restBest apiDoc Documentation
 |---------|-----------|--------------------------------------|
 | admintoken			| String			|  <p>admin access token.</p>							|
 
-## Delete entry
+## Retrieve user entries
 
 
 
-	DELETE /entries/:id
-
-
-## Retrieve entry
-
-
-
-	GET /entries/:id
+	GET /entries/me
 
 
 ## Retrieve entries
@@ -120,34 +116,13 @@ restBest apiDoc Documentation
 
 	GET /entries
 
-### Headers
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| x-total-count			| Number			|  <p>entries count.</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update entry
-
-
-
-	PATCH /entries/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| content			| 			|  <p>Entry's content.</p>							|
+| count			| Number			|  							|
+| postcode			| Number			|  							|
 
 # Message
 
