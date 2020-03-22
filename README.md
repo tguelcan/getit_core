@@ -20,7 +20,7 @@
 - Continuous integration support - Using Travis CI
 - API docs generator - Using apidoc
 
-# #️⃣ getit_core 101
+# 🍰 getit_core 101
 
 Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
 
@@ -33,6 +33,24 @@ You can also configure how many results you want to see at max
 ```bash
 /api/entries?postcode=64319&type=articles&count=42
 ```
+
+if you want to create entries for testing purposes, install python and use the https://github.com/tguelcan/getit_core/blob/master/BuyersEntryScript PyMongo script to create test data.
+
+# 🌈 getit_core endpoints
+
+GET Endpoints
+
+```bash
+/api/entries?postcode=64319&type=articles
+/api/entries/me
+```
+
+POST Endpoints
+
+```bash
+/api/entries/create
+```
+
 
 # #️⃣ Commands you can use
 
