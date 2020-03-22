@@ -98,7 +98,7 @@ router.get('',
  * @apiParam {String} admintoken Admin token.
  * @apiSuccess {Object} user User's data.
  */
-router.get('/me', doorman(['user', 'admin']), 
+router.get('/me', doorman(['user', 'admin', 'buyer', 'distributor']), 
     getMe)
 
 /**
@@ -149,7 +149,7 @@ router.post('',
  * @apiError 404 User not found.
  */ 
 router.patch('/:id', 
-    doorman(['user', 'admin']), 
+    doorman(['user', 'admin', 'buyer', 'distributor']), 
     update)
 
 
