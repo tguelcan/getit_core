@@ -2,8 +2,8 @@
  <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/get_it_logo.jpg" width="400">
 </p>
 
-[![Build Status](https://travis-ci.com/tguelcan/getit_core.svg?branch=master)](https://travis-ci.com/tguelcan/getit_core) 
-[![Coverage Status](https://coveralls.io/repos/github/tguelcan/getit_core/badge.svg?branch=master)](https://coveralls.io/github/tguelcan/getit_core?branch=master) 
+[![Build Status](https://travis-ci.com/tguelcan/restbest.svg?branch=master)](https://travis-ci.com/tguelcan/restbest) 
+[![Coverage Status](https://coveralls.io/repos/github/tguelcan/restbest/badge.svg?branch=master)](https://coveralls.io/github/tguelcan/restbest?branch=master) 
 [![dependencies Status](https://david-dm.org/tguelcan/getit_core/status.svg)](https://david-dm.org/tguelcan/getit_core) 
 [![devDependencies Status](https://david-dm.org/tguelcan/getit_core/dev-status.svg)](https://david-dm.org/tguelcan/getit_core?type=dev) 
 [![Heroku CI Status](https://heroku-pass-ci.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/0e6548a4-79df-4655-b19a-724b3c009aa3/tests)
