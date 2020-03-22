@@ -1,10 +1,9 @@
 import restifyMongoose from 'restify-mongoose'
 import { Router } from 'restify-router'
 import { restConfig } from '~/config'
-import { deleteAll, create, get } from './controller'
+import { deleteAll, create, get, getMe } from './controller'
 import model, { modelProjection } from './model'
-import { masterman, doorman } from '~/services/guard'
-import { validateEntryBeforeCreate } from '~/utils'
+import { doorman } from '~/services/guard'
 
 const config = {
 
@@ -87,7 +86,8 @@ router.get('',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Entry not found.
  */
-router.get('/:id', endpoint.detail())
+router.get('/me', doorman(['user', 'admin', 'buyer', 'retailer']), 
+    getMe)
 
 /**
  * @api {post} /entries Create entry

@@ -30,7 +30,22 @@ export const create = async(req, res, next) => {
         return next(new BadRequestError(error))
     }
 }
+export const getMe = async(req, res, next) => {
+    
+    try {
+        const count = req.query?.count === undefined ? 20 : parseInt(req.query.count)
 
+        const id = (await decode(extractToken(req)))._id
+
+        const entries = await Entry.find({user: Types.ObjectId(id)}).sort({createdAt: 'ascending'}).limit(count)
+        const data = []
+        entries.forEach((entry) => { data.push(entry.modelProjection()) })
+
+        res.send(201, data)
+    } catch (error) {
+        return next(new BadRequestError(error))
+    }
+}
 
 export const get = async(req, res, next) => {
 

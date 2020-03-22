@@ -152,8 +152,7 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         expect(status).toBe(401)
         
     })
-    /* 
-
+    
     test(`GET /${apiEndpoint}/me 200`, async () => {
         const {status, body} = await request(server)
             .get(`${serverConfig.endpoint}/${apiEndpoint}/me`)
@@ -162,11 +161,24 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         expect(status).toBe(201)
         expect(Array.isArray(body)).toBe(true)
         expect(body.length).toBe(2)
-
     })
 
- */
+    test(`GET /${apiEndpoint}/me 401 - missing token`, async () => {
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/me`)
+        
+        expect(status).toBe(401)
+    })
 
+    test(`GET /${apiEndpoint}/me 200`, async () => {
+        const {status, body} = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/me?count=1`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+        
+        expect(status).toBe(201)
+        expect(Array.isArray(body)).toBe(true)
+        expect(body.length).toBe(1)
+    })
     /*
     test(`PATCH /${apiEndpoint}/:id 200`, async () => {
         const { status, body } = await request(server)
