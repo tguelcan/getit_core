@@ -107,7 +107,7 @@ router.get('/me', doorman(['user', 'admin', 'buyer', 'distributor', 'retailer'])
  * @apiGroup User
  * @apiPermission public
  * @apiSuccess {Object} user User's data.
- * @apiError 404 User not found.
+ * @apiError 400 User not found.
  */
 router.get('/:id', 
     endpoint.detail())
@@ -146,7 +146,7 @@ router.post('',
  * @apiSuccess {Object} user User's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 Current user or admin access only.
- * @apiError 404 User not found.
+ * @apiError 400 User not found.
  */ 
 router.patch('/:id', 
     doorman(['user', 'admin', 'buyer', 'distributor', 'retailer']), 
@@ -163,7 +163,7 @@ router.patch('/:id',
  * @apiSuccess (Success 201) {Object} user User's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 Current user access only.
- * @apiError 404 User not found.
+ * @apiError 400 User not found.
  */
 router.patch('/:id/password',
     doorman(['user', 'admin']),
@@ -175,7 +175,7 @@ router.patch('/:id/password',
  * @apiName DeleteMessage
  * @apiGroup User
  * @apiSuccess (Success 204) 204 No Content.
- * @apiError 404 User not found.
+ * @apiError 400 User not found.
  */
 router.del('/:id', 
     endpoint.remove())
