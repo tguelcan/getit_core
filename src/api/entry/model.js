@@ -45,17 +45,24 @@ const entrieschema = new Schema({
 
 export const modelProjection = function (req, item = this, cb) {
     let view = {}
-    let fields = ['id', 'postcode', 'type', 'createdAt', 'deliveryDate', 'user', 'list']
+    let fields = ['id', 'postcode', 'entryType', 'createdAt', 'deliveryDate', 'user', 'list']
 
     fields.forEach((field) => {
-        view[field] = item[field]})
+        view[field] = item[field]
+    })
 
+    // stupid fix to remove _id
+    const newList = []    
+    view.list.forEach((obj) => newList.push({name: obj.name, amount: obj.amount, unit: obj.unit, shop: obj.shop }))
+    view.list = newList
 
     if(!cb)
         return view
     
-
     cb(null, view)
+}
+entrieschema.methods = {
+    modelProjection
 }
 
 export default mongoose.model('Entry', entrieschema)

@@ -7,36 +7,148 @@ import { sign } from '~/services/guard'
 import User from '~/api/user/model'
 
 
-let dataObject, 
-    adminToken,
-    defaultToken,
-    defaultBuyer, 
+let defaultToken,
+    defaultBuyer,
     apiEndpoint = 'entries'
 
 beforeEach(async (done) => {
-    
+
     defaultBuyer = await User.create({ name: 'Maximilian', email: 'max2@moritz.com', password: 'Max123!!!', role: 'buyer' })
+    await User.create({ name: 'Maximilian', email: 'max3@moritz.com', password: 'Max123!!!', role: 'buyer' })
 
     defaultToken = await sign(defaultBuyer)
     expect(isJWT(defaultToken)).toBe(true)
+
+    const postcode = 12345
+    const entryType = 'product'
+    const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
+    
+    await Model.create({email: 'max2@moritz.com', postcode, entryType, list, user: defaultBuyer._id})
+    await Model.create({email: 'max3@moritz.com', postcode, entryType, list, user: defaultBuyer._id, createdAt: new Date().setMonth(1)})
+
     done()
 })
 
 describe(`Test /${apiEndpoint} endpoint:`, () => {
-/* 
+
     test(`GET /${apiEndpoint} 200`, async () => {
-        const {statusCode, body} = await request(server)
-            .get(`${serverConfig.endpoint}/${apiEndpoint}`)
-        const firstItem = body[0]
+        const postcode = 12345
+        const entryType = 'product'
+        const {status, body} = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}&type=${entryType}`)
+            .set('Authorization', 'Bearer ' + defaultToken)
         
-        expect(statusCode).toBe(200)
+        expect(status).toBe(201)
         expect(Array.isArray(body)).toBe(true)
-        expect(typeof firstItem.content).toEqual('string')
-        expect(firstItem.content).toEqual(dataObject.content)
-        expect(firstItem.id).toBeTruthy()
-        expect(firstItem.updatedAt).toBeUndefined()
+        // TODO: Test the right order
+        body.forEach((entry) => {
+            expect(entry.postcode).toBe(postcode)
+            expect(entry.entryType).toBe(entryType)
+        })
+        expect(body.length).toBe(2)
+
     })
 
+    test(`GET /${apiEndpoint} 200`, async () => {
+        const postcode = 12345
+        const entryType = 'product'
+        const {status, body} = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}&type=${entryType}&count=1`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+        
+        expect(status).toBe(201)
+        expect(Array.isArray(body)).toBe(true)
+        expect(body.length).toBe(1)
+
+    })
+
+
+
+    test(`GET /${apiEndpoint} 401 - missing token`, async () => {
+        const postcode = 12345
+        const entryType = 'product'
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}&type=${entryType}`)
+        
+        expect(status).toBe(401)
+    })
+
+    test(`GET /${apiEndpoint} 400 - missing all query parameter`, async () => {
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+
+        expect(status).toBe(400)
+    })
+
+    test(`GET /${apiEndpoint} 400 - missing postcode query parameter`, async () => {
+        const entryType = 'product'
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}?type=${entryType}`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+
+        expect(status).toBe(400)
+    })
+
+    test(`GET /${apiEndpoint} 400 - missing type query parameter`, async () => {
+        const postcode = 12345
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+
+        expect(status).toBe(400)
+    })
+
+
+
+    test(`POST /${apiEndpoint} 201`, async () => {
+        const email = 'max2@moritz.com'
+        const postcode = 12345
+        const entryType = 'product'
+        const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
+        const { body, status } = await request(server)
+            .post(`${serverConfig.endpoint}/${apiEndpoint}`)
+            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list} )
+
+        expect(body.user.toString()).toEqual(defaultBuyer._id.toString())
+        expect(body.postcode).toBe(postcode)
+        expect(body.entryType).toBe(entryType)
+        expect(typeof body.createdAt).toBe('string')
+        expect(body.list).toEqual(list)
+        expect(status).toBe(201)
+        
+    })
+
+    test(`POST /${apiEndpoint} 401 - wrong mail`, async () => {
+        const email = 'max3@moritz.com'
+        const postcode = 12345
+        const entryType = 'product'
+        const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
+        const { status } = await request(server)
+            .post(`${serverConfig.endpoint}/${apiEndpoint}`)
+            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list} )
+
+        expect(status).toBe(401)
+        
+    })
+
+
+    test(`POST /${apiEndpoint} 401 - wrong token`, async () => {
+        const email = 'max2@moritz.com'
+        const postcode = 12345
+        const entryType = 'product'
+        const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
+        const { status } = await request(server)
+            .post(`${serverConfig.endpoint}/${apiEndpoint}`)
+            .send({ email, token: '123',  user: defaultBuyer._id, postcode, entryType, list} )
+
+
+        expect(status).toBe(401)
+        
+    })
+
+
+    /* 
     test(`GET /${apiEndpoint}:id 200`, async () => {
         const { status, body } = await request(server)
             .get(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)
@@ -53,17 +165,7 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         expect(status).toBe(404)
     })
     
- */    test(`POST /${apiEndpoint} 201`, async () => {
-        const { body } = await request(server)
-            .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email: 'max2@moritz.com', token: defaultToken,  user: defaultBuyer._id, postcode: '12345', type: 'product', list: [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'farmer dude', }]} )
-        
-        console.log(body)
-        //const entry = await Model.findOne({user: defaultBuyer._id})
-        //console.log(entry.modelProjection())
 
-    })
-    /* 
     test(`PATCH /${apiEndpoint}/:id 200`, async () => {
         const { status, body } = await request(server)
             .patch(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)

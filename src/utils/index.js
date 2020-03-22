@@ -22,7 +22,7 @@ export const postcodeValidator = {
      * @returns {boolean} if the postcode is correct enough lol
      */
     validator: function (postcode) {
-        const strongRegex = new RegExp('^(\d{5})')
+        const strongRegex = new RegExp('\\d{5}')
         return strongRegex.test(postcode)
     },
     /**
