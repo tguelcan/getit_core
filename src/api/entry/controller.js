@@ -1,7 +1,9 @@
 import Entry from './model'
 import { BadRequestError, UnauthorizedError } from 'restify-errors'
 import userModel from '~/api/user/model'
-import { validateMail } from '~/services/guard'
+import { validateMail, decode } from '~/services/guard'
+import { extractToken } from '~/utils'
+import { Types } from 'mongoose'
 
 export const deleteAll = async(req, res) => {
     await Entry.deleteMany()
@@ -11,7 +13,7 @@ export const deleteAll = async(req, res) => {
 
 export const create = async(req, res, next) => {
 
-    const { postcode, entryType, list, deliveryDate, email } = req.body
+    const { postcode, entryType, list, deliveryDate, email, name } = req.body
     
     try {
         const response = await userModel.findOne({ email }) // find user
@@ -19,7 +21,7 @@ export const create = async(req, res, next) => {
         if (!await validateMail(req, response._id.toString())) return next(new UnauthorizedError())
         // TODO: validate entry input
         // create entry
-        const entry = await Entry.create({ postcode, entryType, list, deliveryDate, user: response._id  })
+        const entry = await Entry.create({ postcode, entryType, list, deliveryDate, user: response._id, name  })
         res.send(201, entry.modelProjection())
  
     } catch (error) {

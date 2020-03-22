@@ -1,9 +1,12 @@
 import mongoose, { Schema } from 'mongoose'
 import { postcodeValidator } from '~/utils'
-
 const types = ['product', 'service']
 
 const entrieschema = new Schema({
+    name: {
+        type: String, 
+        required: true,
+    },
     postcode: {
         type: Number,
         required: true,
