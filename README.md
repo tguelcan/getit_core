@@ -8,7 +8,7 @@
 [![devDependencies Status](https://david-dm.org/tguelcan/restbest/dev-status.svg)](https://david-dm.org/tguelcan/restbest?type=dev) 
 [![Heroku CI Status](https://heroku-pass-ci.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/0e6548a4-79df-4655-b19a-724b3c009aa3/tests)
 
-**getit_core powers the GET IT! Application: https://github.com/tguelcan/getit featured on DEVPOST: (https://devpost.com/software/get-it-5otumj. It is based on NodeJS, Restify, Mongodb and Mongoose.** 
+**getit_core powers the GET IT! Frontend: https://github.com/tguelcan/getit featured on DEVPOST: (https://devpost.com/software/get-it-5otumj. It is based on NodeJS, Restify, Mongodb and Mongoose.** 
 
 - RESTful - It follows the best practices
 - BABEL7 - with ESLint
@@ -36,6 +36,8 @@ You can also configure how many results you want to see at max
 if you want to create entries for testing purposes, install python and use the https://github.com/tguelcan/getit_core/blob/master/BuyersEntryScript PyMongo script to create test data.
 
 # 🌈 getit_core endpoints
+
+## Authentication endpoints:
 
 GET Endpoints
 
