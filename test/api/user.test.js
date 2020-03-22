@@ -26,13 +26,6 @@ beforeEach(async (done) => {
     
     defaultToken = await sign(defaultUser)
     expect(isJWT(defaultToken)).toBe(true)
-    
-    // Sign in user
-    adminToken = await sign(adminUser)
-    expect(isJWT(adminToken)).toBe(true)
-    
-    defaultToken = await sign(defaultUser)
-    expect(isJWT(defaultToken)).toBe(true)
 
     done()
 })
