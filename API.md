@@ -1,9 +1,20 @@
-# restbest v0.0.1
+# restbest v0.1.4
 
 restBest apiDoc Documentation
 
+- [Auth](#auth)
+	- [Authenticate with external provider](#authenticate-with-external-provider)
+	
 - [Authentication](#authentication)
 	- [User Authentication](#user-authentication)
+	
+- [Entry](#entry)
+	- [Create entry](#create-entry)
+	- [Delete all entries](#delete-all-entries)
+	- [Delete entry](#delete-entry)
+	- [Retrieve entry](#retrieve-entry)
+	- [Retrieve entries](#retrieve-entries)
+	- [Update entry](#update-entry)
 	
 - [Message](#message)
 	- [Create message](#create-message)
@@ -12,6 +23,11 @@ restBest apiDoc Documentation
 	- [Retrieve message](#retrieve-message)
 	- [Retrieve messages](#retrieve-messages)
 	- [Update message](#update-message)
+	
+- [PasswordReset](#passwordreset)
+	- [Send email](#send-email)
+	- [Submit password](#submit-password)
+	- [Verify token](#verify-token)
 	
 - [User](#user)
 	- [Create user](#create-user)
@@ -22,18 +38,22 @@ restBest apiDoc Documentation
 	- [Update password](#update-password)
 	- [Update user](#update-user)
 	
-- [Password Reset](#password-reset)
-	- [Send mail](#send-mail)
-	- [Verify token](#verify-token)
-	- [Submit password](#submit-password)
 
-- [Entry](#entry)
-	- [Create entry](#create-entry)
-	- [Delete entry](#delete-entry)
-	- [Retrieve entry](#retrieve-entry)
-	- [Retrieve entries](#retrieve-entries)
-	- [Update entry](#update-entry)
 
+# Auth
+
+## Authenticate with external provider
+
+
+
+	POST /auth/:provider
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>Facebook user accessToken.</p>							|
 
 # Authentication
 
@@ -48,9 +68,86 @@ restBest apiDoc Documentation
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| email 			| String			|  <p>User's email.</p>							|
+| username			| String			|  <p>User's username.</p>							|
 | password			| String			|  <p>User's password.</p>							|
-| token 			| String			|  <p>admin access token.</p>							|
+| masterkey			| String			|  <p>admin access token.</p>							|
+
+# Entry
+
+## Create entry
+
+
+
+	POST /entries
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| content			| 			|  <p>Entry's content.</p>							|
+
+## Delete all entries
+
+
+
+	DELETE /entries/all
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| admintoken			| String			|  <p>admin access token.</p>							|
+
+## Delete entry
+
+
+
+	DELETE /entries/:id
+
+
+## Retrieve entry
+
+
+
+	GET /entries/:id
+
+
+## Retrieve entries
+
+
+
+	GET /entries
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| x-total-count			| Number			|  <p>entries count.</p>							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update entry
+
+
+
+	PATCH /entries/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| content			| 			|  <p>Entry's content.</p>							|
 
 # Message
 
@@ -128,6 +225,42 @@ restBest apiDoc Documentation
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | content			| 			|  <p>Message's content.</p>							|
+
+# PasswordReset
+
+## Send email
+
+
+
+	POST /password-resets
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| email			| String			|  <p>Email address to receive the password reset token.</p>							|
+| link			| String			|  <p>Link to redirect user.</p>							|
+
+## Submit password
+
+
+
+	PATCH /password-resets/:token
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| password			| String			|  <p>User's new password.</p>							|
+
+## Verify token
+
+
+
+	GET /password-resets/:token
+
 
 # User
 
@@ -226,117 +359,5 @@ restBest apiDoc Documentation
 | name			| String			| **optional** <p>User's name.</p>							|
 | picture			| String			| **optional** <p>User's picture.</p>							|
 | userSettings			| Object			| **optional** <p>some usersettings values.</p>							|
-
-
-# Password Reset
-
-## Send mail
-
-
-	POST /password-resets
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| token			| String			|  <p>Master token.</p>							|
-| email			| String			|  <p>User's email.</p>							|
-| link			| String			|  <p>Password reset link, token gets concatenated.</p>							|
-
-
-## Verify Token
-
-	
-	GET /password-resets/:token
-
-
-
-## Submit Password
-
-	PATCH /password-resets/:token
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| password			| String			|  <p>New password.</p>							|
-
-
-# Entry
-
-## Create entry
-
-	POST /entries
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| postcode			| 			|  <p>Message's content.</p>							|
-
-## Delete all messages
-
-
-
-	DELETE /messages/all
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| admintoken			| String			|  <p>admin access token.</p>							|
-
-## Delete message
-
-
-
-	DELETE /messages/:id
-
-
-## Retrieve message
-
-
-
-	GET /messages/:id
-
-
-## Retrieve messages
-
-
-
-	GET /messages
-
-### Headers
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| x-total-count			| Number			|  <p>Messages count.</p>							|
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update message
-
-
-
-	PUT /messages/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| content			| 			|  <p>Message's content.</p>							|
 
 

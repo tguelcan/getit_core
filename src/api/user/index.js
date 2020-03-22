@@ -86,7 +86,7 @@ const endpoint = restifyMongoose(model, Object.assign(restConfig, config))
  * @apiError 401 Admin access only.
  */
 router.get('', 
-    doorman(['user', 'admin']), 
+    doorman(['user', 'admin', 'buyer', 'distributor', 'retailer']), 
     endpoint.query())
 
 /**
@@ -98,7 +98,7 @@ router.get('',
  * @apiParam {String} admintoken Admin token.
  * @apiSuccess {Object} user User's data.
  */
-router.get('/me', doorman(['user', 'admin', 'buyer', 'distributor']), 
+router.get('/me', doorman(['user', 'admin', 'buyer', 'distributor', 'retailer']), 
     getMe)
 
 /**
@@ -149,7 +149,7 @@ router.post('',
  * @apiError 404 User not found.
  */ 
 router.patch('/:id', 
-    doorman(['user', 'admin', 'buyer', 'distributor']), 
+    doorman(['user', 'admin', 'buyer', 'distributor', 'retailer']), 
     update)
 
 
