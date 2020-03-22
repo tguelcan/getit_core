@@ -48,7 +48,7 @@ const entrieschema = new Schema({
 
 export const modelProjection = function (req, item = this, cb) {
     let view = {}
-    let fields = ['id', 'postcode', 'entryType', 'createdAt', 'deliveryDate', 'user', 'list']
+    let fields = ['id', 'postcode', 'entryType', 'createdAt', 'deliveryDate', 'user', 'list', 'name']
 
     fields.forEach((field) => {
         view[field] = item[field]
