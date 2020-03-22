@@ -10,11 +10,9 @@
     "url": "https://github.com/tguelcan/getit_core.git"
   },
   "bugs": {
-    "url": "https://github.com/tguelcan/restbest/labels/bug"
+    "url": "https://github.com/tguelcan/getit_core/labels/bug"
   },
-  "homepage": {
-    "url": "https://tayfunguelcan.de"
-  },
+  "homepage": "https://devpost.com/software/get-it-5otumj",
   "apidoc": {
     "name": "getit",
     "description": "getit apiDoc Documentation",
