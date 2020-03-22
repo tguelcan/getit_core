@@ -24,12 +24,15 @@
 
 Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
 
+```bash
 /api/entries?postcode=64319&type=articles
+```
 
 You can also configure how many results you want to see at max
 
+```bash
 /api/entries?postcode=64319&type=articles&count=42
-
+```
 
 # #️⃣ Commands you can use
 
