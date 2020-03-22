@@ -9,7 +9,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5945843900d6de10a55c/maintainability)](https://codeclimate.com/github/tguelcan/restbest/maintainability)
 [![Heroku CI Status](https://heroku-pass-ci.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/0e6548a4-79df-4655-b19a-724b3c009aa3/tests)
 
-**restbest is a customizable rest backend and productive generator. It is based on NodeJS, Restify, Mongodb and Mongoose.**
+**getit_core powers the GET IT! (https://devpost.com/software/get-it-5otumj) application . It is based on NodeJS, Restify, Mongodb and Mongoose.**
 
 - RESTful - It follows the best practices
 - BABEL7 - with ESLint
@@ -19,6 +19,37 @@
 - Unit and integration tests - Using Jest
 - Continuous integration support - Using Travis CI
 - API docs generator - Using apidoc
+
+# 🍰 getit_core 101
+
+Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
+
+```bash
+/api/entries?postcode=64319&type=articles
+```
+
+You can also configure how many results you want to see at max
+
+```bash
+/api/entries?postcode=64319&type=articles&count=42
+```
+
+if you want to create entries for testing purposes, install python and use the https://github.com/tguelcan/getit_core/blob/master/BuyersEntryScript PyMongo script to create test data.
+
+# 🌈 getit_core endpoints
+
+GET Endpoints
+
+```bash
+/api/entries?postcode=64319&type=articles
+/api/entries/me
+```
+
+POST Endpoints
+
+```bash
+/api/entries/create
+```
 
 
 # #️⃣ Commands you can use
