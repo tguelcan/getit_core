@@ -9,7 +9,7 @@ import { serverConfig } from '~/config'
 import { hashPassword, passwordValidator } from '~/utils'
 
 let { emailTemplates } = serverConfig
-const roles = ['user', 'admin']
+const roles = ['user', 'admin', 'buyer', 'retailer', 'distributor']
 
 const userSchema = new Schema({
     email: {

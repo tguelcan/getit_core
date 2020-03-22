@@ -27,6 +27,14 @@ restBest apiDoc Documentation
 	- [Verify token](#verify-token)
 	- [Submit password](#submit-password)
 
+- [Entry](#entry)
+	- [Create entry](#create-entry)
+	- [Delete entry](#delete-entry)
+	- [Retrieve entry](#retrieve-entry)
+	- [Retrieve entries](#retrieve-entries)
+	- [Update entry](#update-entry)
+
+
 # Authentication
 
 ## User Authentication
@@ -254,4 +262,81 @@ restBest apiDoc Documentation
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | password			| String			|  <p>New password.</p>							|
+
+
+# Entry
+
+## Create entry
+
+	POST /entries
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| postcode			| 			|  <p>Message's content.</p>							|
+
+## Delete all messages
+
+
+
+	DELETE /messages/all
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| admintoken			| String			|  <p>admin access token.</p>							|
+
+## Delete message
+
+
+
+	DELETE /messages/:id
+
+
+## Retrieve message
+
+
+
+	GET /messages/:id
+
+
+## Retrieve messages
+
+
+
+	GET /messages
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| x-total-count			| Number			|  <p>Messages count.</p>							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update message
+
+
+
+	PUT /messages/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| content			| 			|  <p>Message's content.</p>							|
+
 

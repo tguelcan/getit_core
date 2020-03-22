@@ -2,10 +2,17 @@ import bcrypt from 'bcryptjs'
 import { UnauthorizedError } from 'restify-errors'
 
 /**
- * Validate Middleware - canot create user with another roles
+ * Validate Middleware - cannot create user with another roles
  */
 export const validateUserBeforeCreate = () => (({ body }, res, next) => 
     (body?.role) ? next(new UnauthorizedError('Cannot create user with roles')) : next()
+)
+
+/** TODO: 
+ * Validate Middleware - rules for entries
+ */
+export const validateEntryBeforeCreate = () => (({ body }, res, next) => 
+    next()
 )
 
 export const passwordValidator = {

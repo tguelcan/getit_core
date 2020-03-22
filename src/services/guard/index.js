@@ -4,7 +4,7 @@ import { UnauthorizedError } from 'restify-errors'
 import { extractToken } from '~/utils'
 import { serverConfig } from '~/config'
 
-export const roles = ['user', 'admin']
+export const roles = ['user', 'admin', 'buyer', 'retailer', 'distributor']
 
 export const sign = async({ _id, role }) => 
     jwt.sign({_id, role}, serverConfig?.jwt?.secret, {
@@ -16,7 +16,7 @@ export const decode = async(token) =>
 
 export const doorman = (passedRoles) =>  
     [
-        rJWT(serverConfig.jwt), ((req, res, next) => 
+        rJWT(serverConfig.jwt), ((req, res, next) =>
             (roles.some(r => passedRoles.includes(r)) && passedRoles.includes(req.user?.role) ? next() : next(new UnauthorizedError()))
         )
         
