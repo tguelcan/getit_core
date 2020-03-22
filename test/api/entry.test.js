@@ -30,6 +30,9 @@ beforeEach(async (done) => {
 
     await Model.create({email: 'max3@moritz.com', postcode, entryType, list, user: otherBuyer0._id, createdAt: new Date().setMonth(1), name})
 
+    await Model.create({email: 'max3@moritz.com', postcode: 99999, entryType, list, user: otherBuyer0._id, createdAt: new Date().setMonth(1), name})
+
+
     done()
 })
 
@@ -86,20 +89,13 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
 
     test(`GET /${apiEndpoint} 400 - missing postcode query parameter`, async () => {
         const entryType = 'product'
-        const { status } = await request(server)
+        const { status, body } = await request(server)
             .get(`${serverConfig.endpoint}/${apiEndpoint}?type=${entryType}`)
             .set('Authorization', 'Bearer ' + defaultToken)
 
-        expect(status).toBe(400)
-    })
-
-    test(`GET /${apiEndpoint} 400 - missing type query parameter`, async () => {
-        const postcode = 12345
-        const { status } = await request(server)
-            .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}`)
-            .set('Authorization', 'Bearer ' + defaultToken)
-
-        expect(status).toBe(400)
+        expect(status).toBe(201)
+        expect(Array.isArray(body)).toBe(true)
+        expect(body.length).toBe(4)
     })
 
 

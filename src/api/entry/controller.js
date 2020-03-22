@@ -24,7 +24,8 @@ export const create = async(req, res, next) => {
         // TODO: validate entry input!!
 
         // create entry
-        const entry = await Entry.create({ postcode, entryType, list, deliveryDate, user: response._id, name  })
+        const entry = await (await Entry.create({ postcode, entryType, list, deliveryDate, user: response._id, name  }))
+        console.log(entry.modelProjection())
         res.send(201, entry.modelProjection())
  
     } catch (error) {
@@ -44,14 +45,12 @@ export const getMe = async(req, res, next) => {
         const id = (await decode(extractToken(req)))._id
 
         // find entries, sort ascending and limit by count
-        const entries = await Entry.find({user: Types.ObjectId(id)}).sort({createdAt: 'ascending'}).limit(count)
-        
+        const entries = await Entry.find({user: Types.ObjectId(id)}).populate({ path: 'user', select: ['name', 'picture'] }).sort({createdAt: 'ascending'}).limit(count)
         // project the models
         const data = []
         entries.forEach((entry) => { data.push(entry.modelProjection()) })
 
         res.send(201, data)
-
     } catch (error) {
         return next(new BadRequestError(error))
     }
@@ -62,11 +61,12 @@ export const get = async(req, res, next) => {
     try {
         
         // check for postcode and type
-        if (!req.query?.postcode || !req.query?.type) return next(new BadRequestError('Missing query parameter'))
+        if (!req.query?.type) return next(new BadRequestError('Missing query parameter'))
         
         // get count if given
         const count = req.query?.count === undefined ? 20 : parseInt(req.query.count)
-        const entries = await Entry.find({postcode: req.query?.postcode, entryType: req.query?.type}).sort({createdAt: 'ascending'}).limit(count)
+        const code = req.query?.postcode ? { postcode: req.query?.postcode } : {}
+        const entries = await Entry.find({...code, entryType: req.query?.type}).populate({ path: 'user', select: ['name', 'picture'] }).sort({createdAt: 'ascending'}).limit(count)
 
         // project the models
         const data = []
