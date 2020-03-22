@@ -31,6 +31,8 @@ To see all the API endpoints, take a look at our [API docs](API.md)
 
 Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
 
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/Bild 23.03.20 um 00.31.jpg" width="300">
+
 ```bash
 /api/entries?postcode=64319&type=articles
 ```
