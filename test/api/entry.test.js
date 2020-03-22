@@ -9,12 +9,13 @@ import User from '~/api/user/model'
 
 let defaultToken,
     defaultBuyer,
+    otherBuyer0,
     apiEndpoint = 'entries'
 
 beforeEach(async (done) => {
 
     defaultBuyer = await User.create({ name: 'Maximilian', email: 'max2@moritz.com', password: 'Max123!!!', role: 'buyer' })
-    await User.create({ name: 'Maximilian', email: 'max3@moritz.com', password: 'Max123!!!', role: 'buyer' })
+    otherBuyer0 = await User.create({ name: 'Maximilian', email: 'max3@moritz.com', password: 'Max123!!!', role: 'buyer' })
 
     defaultToken = await sign(defaultBuyer)
     expect(isJWT(defaultToken)).toBe(true)
@@ -22,9 +23,12 @@ beforeEach(async (done) => {
     const postcode = 12345
     const entryType = 'product'
     const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
-    
-    await Model.create({email: 'max2@moritz.com', postcode, entryType, list, user: defaultBuyer._id})
-    await Model.create({email: 'max3@moritz.com', postcode, entryType, list, user: defaultBuyer._id, createdAt: new Date().setMonth(1)})
+    const name = 'einkaufsliste'
+
+    await Model.create({email: 'max2@moritz.com', postcode, entryType, list, user: defaultBuyer._id, name})
+    await Model.create({email: 'max2@moritz.com', postcode, entryType, list: [{ name: 'thing', amount: 3, unit: 'kg', shop: 'bauer'}], user: defaultBuyer._id, name})
+
+    await Model.create({email: 'max3@moritz.com', postcode, entryType, list, user: otherBuyer0._id, createdAt: new Date().setMonth(1), name})
 
     done()
 })
@@ -37,7 +41,6 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         const {status, body} = await request(server)
             .get(`${serverConfig.endpoint}/${apiEndpoint}?postcode=${postcode}&type=${entryType}`)
             .set('Authorization', 'Bearer ' + defaultToken)
-        
         expect(status).toBe(201)
         expect(Array.isArray(body)).toBe(true)
         // TODO: Test the right order
@@ -45,7 +48,7 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
             expect(entry.postcode).toBe(postcode)
             expect(entry.entryType).toBe(entryType)
         })
-        expect(body.length).toBe(2)
+        expect(body.length).toBe(3)
 
     })
 
@@ -105,10 +108,11 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         const email = 'max2@moritz.com'
         const postcode = 12345
         const entryType = 'product'
+        const name = 'einkaufsliste'
         const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
         const { body, status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list} )
+            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list, name} )
 
         expect(body.user.toString()).toEqual(defaultBuyer._id.toString())
         expect(body.postcode).toBe(postcode)
@@ -123,10 +127,11 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         const email = 'max3@moritz.com'
         const postcode = 12345
         const entryType = 'product'
+        const name = 'einkaufsliste'
         const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
         const { status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list} )
+            .send({ email, token: defaultToken,  user: defaultBuyer._id, postcode, entryType, list, name} )
 
         expect(status).toBe(401)
         
@@ -137,35 +142,44 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         const email = 'max2@moritz.com'
         const postcode = 12345
         const entryType = 'product'
+        const name = 'einkaufsliste'
         const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
         const { status } = await request(server)
             .post(`${serverConfig.endpoint}/${apiEndpoint}`)
-            .send({ email, token: '123',  user: defaultBuyer._id, postcode, entryType, list} )
+            .send({ email, token: '123',  user: defaultBuyer._id, postcode, entryType, list, name} )
 
 
         expect(status).toBe(401)
         
     })
-
-
-    /* 
-    test(`GET /${apiEndpoint}:id 200`, async () => {
-        const { status, body } = await request(server)
-            .get(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)
-        
-        expect(status).toBe(200)
-        expect(typeof body).toEqual('object')
-        expect(body.content).toEqual(dataObject.content)
-    })
-
-    test(`GET /${apiEndpoint}/:id 404`, async () => {
-        const { status } = await request(server)
-            .get(`${serverConfig.endpoint}/${apiEndpoint}/123456789098765432123456`)
-        
-        expect(status).toBe(404)
-    })
     
+    test(`GET /${apiEndpoint}/me 200`, async () => {
+        const {status, body} = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/me`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+        
+        expect(status).toBe(201)
+        expect(Array.isArray(body)).toBe(true)
+        expect(body.length).toBe(2)
+    })
 
+    test(`GET /${apiEndpoint}/me 401 - missing token`, async () => {
+        const { status } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/me`)
+        
+        expect(status).toBe(401)
+    })
+
+    test(`GET /${apiEndpoint}/me 200`, async () => {
+        const {status, body} = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/me?count=1`)
+            .set('Authorization', 'Bearer ' + defaultToken)
+        
+        expect(status).toBe(201)
+        expect(Array.isArray(body)).toBe(true)
+        expect(body.length).toBe(1)
+    })
+    /*
     test(`PATCH /${apiEndpoint}/:id 200`, async () => {
         const { status, body } = await request(server)
             .patch(`${serverConfig.endpoint}/${apiEndpoint}/${dataObject.id}`)
