@@ -23,9 +23,12 @@
 
 In order to use the endpoints you need to:
 
- <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/login.png" width="300">
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/login.png" width="150">
+ 
 1. Create an account
+
 2. Login with your account
+
 3. Use the jwt token when making requests!
 
 To see all the API endpoints, take a look at our [API docs](API.md)
