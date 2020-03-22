@@ -4,17 +4,47 @@ import datetime
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-connectionString = "mongodb://heroku_g7vf872r:"*+PASSWORD+*"@ds111623.mlab.com:11623/?authSource=heroku_g7vf872r&readPreference=primary&appname=MongoDB%20Compass&ssl=false&retryWrites=false"
+connectionString = "mongodb://heroku_g7vf872r:9tv2sv7hh54338d0s71nghkc7f@ds111623.mlab.com:11623/?authSource=heroku_g7vf872r&readPreference=primary&appname=MongoDB%20Compass&ssl=false&retryWrites=false"
 cluster = MongoClient(connectionString)
 db = cluster["heroku_g7vf872r"]
 collection = db["entries"]
-postcode = 38440
+
+postcode = 64319
 buyer = '5e7626712b20de0017654545'
+name = "Wocheneinkauf"
+entryType = "product"
 
-post1 = {"postcode":postcode,"entryType":"product","createdAt": datetime.datetime.utcnow(),"deliveryDate": datetime.datetime.today() + datetime.timedelta(days=1),"user":ObjectId(buyer),"list":[{"_id":ObjectId('5e775eb9e18e3b057d2d9b1b'),"name":"Glas Spreewaldgurken","amount":3,"unit":"piece","shop":"netto"},{"_id":ObjectId('5e775eb9e18e3b057d2d9b0a'),"name":"milk","amount":1,"unit":"liter","shop":"netto"}]}
-post2 = {"postcode":postcode,"entryType":"product","createdAt": datetime.datetime.utcnow(),"deliveryDate": datetime.datetime.today() + datetime.timedelta(days=2),"user":ObjectId(buyer),"list":[{"_id":ObjectId('5e775eb9e18e3b057d2d9b1b'),"name":"Pasta","amount":2,"unit":"piece","shop":"rewe"},{"_id":ObjectId('5e775eb9e18e3b057d2d9b0b'),"name":"chocomel","amount":420,"unit":"liter","shop":"rewe"}]}
-post3 = {"postcode":postcode,"entryType":"product","createdAt": datetime.datetime.utcnow(),"deliveryDate": datetime.datetime.today() + datetime.timedelta(days=3),"user":ObjectId(buyer),"list":[{"_id":ObjectId('5e775eb9e18e3b057d2d9b1b'),"name":"honeypomelo","amount":1,"unit":"piece","shop":"edeka"},{"_id":ObjectId('5e775eb9e18e3b057d2d9b0c'),"name":"orangejuice","amount":3,"unit":"liter","shop":"edeka"}]}
+item1ObjectId = '5e775eb9e18e3b057d2d9b1b'
+item1Name = "Schwarzbrot"
+item1Amount = 2
+item1Shop = "Netto"
+item1Unit = "Piece"
 
-collection.insert_one(post1)
-collection.insert_one(post2)
-collection.insert_one(post3)
+item2ObjectId = '5e775eb9e18e3b057d2d9b0a'
+item2Name = "Geriffelte Chips"
+item2Amount = 4
+item2Shop = "Edeka"
+item2Unit = "Liter"
+
+post1 = {
+"postcode":postcode,
+"name":name,
+"entryType":entryType,
+"createdAt": datetime.datetime.utcnow(),
+"deliveryDate": datetime.datetime.today() + datetime.timedelta(days=2),
+"user":ObjectId(buyer),
+"list":
+[{"_id":
+	ObjectId(item1ObjectId),
+	"name": item1Name,
+	"amount":item1Amount,
+	"unit":item1Unit,
+	"shop":item1Shop},
+{"_id":ObjectId(item2ObjectId),
+	"name": item2Name,
+	"amount":item2Amount,
+	"unit":item2Unit,
+	"shop":item2Shop}
+]}
+
+collection.insert_one(post1);
