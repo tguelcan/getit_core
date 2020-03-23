@@ -11,9 +11,7 @@
 **getit_core powers the GET IT! Frontend: https://github.com/tguelcan/getit featured on DEVPOST: (https://devpost.com/software/get-it-5otumj. It is based on NodeJS, Restify, Mongodb and Mongoose.** 
 
 <div>
- <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/login.png" width="150">
- 
- <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/Bild 23.03.20 um 00.31.jpg" width="300">
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/login.png" width="150"> 
  </div>
 
 - RESTful - It follows the best practices
