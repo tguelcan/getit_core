@@ -10,6 +10,12 @@
 
 **getit_core powers the GET IT! Frontend: https://github.com/tguelcan/getit featured on DEVPOST: (https://devpost.com/software/get-it-5otumj. It is based on NodeJS, Restify, Mongodb and Mongoose.** 
 
+<div>
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/login.png" width="150">
+ 
+ <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/Bild 23.03.20 um 00.31.jpg" width="300">
+ </div>
+
 - RESTful - It follows the best practices
 - BABEL7 - with ESLint
 - User registration API - Using [restify-jwt-community](https://github.com/frbuceta/restify-jwt-community)
@@ -30,8 +36,6 @@ In order to use the endpoints you need to:
 To see all the API endpoints, take a look at our [API docs](API.md)
 
 Use the API to display information on who needs what in your local area. The simplest use-case is a GET Request that takes your postal code as a parameters.
-
- <img src="https://raw.githubusercontent.com/tguelcan/getit_core/master/Bild 23.03.20 um 00.31.jpg" width="300">
 
 ```bash
 /api/entries?postcode=64319&type=articles
