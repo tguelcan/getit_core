@@ -10,6 +10,7 @@ import User from '~/api/user/model'
 let defaultToken,
     defaultBuyer,
     otherBuyer0,
+    defaultEntry,
     apiEndpoint = 'entries'
 
 beforeEach(async (done) => {
@@ -25,7 +26,7 @@ beforeEach(async (done) => {
     const list = [ { name: 'eggs', amount: 42, unit: 'piece', shop: 'edeka' }, { name: 'milk', amount: 42, unit: 'liter', shop: 'bauerladen' }]
     const name = 'einkaufsliste'
 
-    await Model.create({email: 'max2@moritz.com', postcode, entryType, list, user: defaultBuyer._id, name})
+    defaultEntry = await Model.create({email: 'max2@moritz.com', postcode, entryType, list, user: defaultBuyer._id, name})
     await Model.create({email: 'max2@moritz.com', postcode, entryType, list: [{ name: 'thing', amount: 3, unit: 'kg', shop: 'bauer'}], user: defaultBuyer._id, name})
 
     await Model.create({email: 'max3@moritz.com', postcode, entryType, list, user: otherBuyer0._id, createdAt: new Date().setMonth(1), name})
@@ -167,7 +168,7 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
     })
 
     test(`GET /${apiEndpoint}/me 200`, async () => {
-        const {status, body} = await request(server)
+        const { status, body } = await request(server)
             .get(`${serverConfig.endpoint}/${apiEndpoint}/me?count=1`)
             .set('Authorization', 'Bearer ' + defaultToken)
         
@@ -176,4 +177,18 @@ describe(`Test /${apiEndpoint} endpoint:`, () => {
         expect(body.length).toBe(1)
     })
    
+
+    test(`GET /${apiEndpoint}/:id 200`, async () => {
+        const { status, body } = await request(server)
+            .get(`${serverConfig.endpoint}/${apiEndpoint}/${defaultEntry._id}`)
+        
+        expect(status).toBe(200)
+        expect(body.postcode).toBe(defaultEntry.postcode)
+        expect(body.entryType).toBe(defaultEntry.entryType)
+        expect(new Date(body.createdAt)).toStrictEqual(defaultEntry.createdAt)
+        expect(body.id).toBe(defaultEntry._id.toString())
+
+    })
+
+
 })

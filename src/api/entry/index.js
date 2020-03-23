@@ -108,6 +108,18 @@ router.post('',
     doorman(['buyer', 'admin', 'retailer']),
     create)
 
+/**
+ * @api {get} /entries/:id Retrieve entry
+ * @apiName RetrieveEntry
+ * @apiGroup Entry
+ * @apiPermission public
+ * @apiSuccess {Object} entry data.
+ * @apiError 400 Entry not found.
+ */
+router.get('/:id', 
+    endpoint.detail())
+
+
 // TODO:
 // Patch + Del
 
